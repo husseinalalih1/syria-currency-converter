@@ -1,270 +1,492 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>محول العملات – الليرة السورية</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>محول الليرة السورية والعملات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ألوان عامة قريبة من التصميم اللي أرسلته */
+    :root {
+      --green: #00a86b;
+      --green-soft: #e5f7f0;
+      --green-dark: #008657;
+      --bg: #f3f5fb;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+    }
 
-<style>
-:root{
-  --bg:#0f172a;--card:#020617;--accent:#22c55e;
-  --text:#e5e7eb;--sub:#9ca3af;--border:#1f2937;
-}
-body{
-  margin:0;font-family:sans-serif;
-  background:radial-gradient(circle at top,#1e293b 0,#020617 55%);
-  min-height:100vh;display:flex;justify-content:center;align-items:flex-start;
-  padding:16px;color:var(--text);
-}
-.wrapper{width:100%;max-width:460px;}
-.card{
-  background:#020617;border-radius:22px;border:1px solid var(--border);
-  box-shadow:0 24px 60px rgba(15,23,42,.7);
-  width:100%;padding:22px 20px;margin-bottom:18px;
-}
-.title{font-size:1.15rem;font-weight:700;margin-bottom:6px;text-align:center;}
-.subtitle{text-align:center;font-size:.8rem;color:var(--sub);margin-bottom:18px;}
-label{font-size:.8rem;color:var(--sub);display:block;margin:4px 0;}
-input,select{
-  width:100%;padding:10px;margin:4px 0 10px;border-radius:10px;
-  border:1px solid var(--border);background:#0f172a;color:var(--text);font-size:15px;
-}
-button{
-  width:100%;padding:10px;margin-top:8px;border-radius:999px;border:none;
-  background:#22c55e;color:#fff;font-size:16px;cursor:pointer;
-}
-button:active{transform:scale(.97);}
-.swap{
-  width:38px;height:38px;border:1px solid var(--border);border-radius:50%;
-  display:flex;justify-content:center;align-items:center;background:#0f172a;
-  cursor:pointer;font-size:18px;margin:auto;margin-top:-4px;margin-bottom:4px;
-}
-.hint{text-align:center;font-size:12px;color:#9ca3af;margin-top:8px;line-height:1.6;}
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-/* أزرار المبالغ الجاهزة */
-.quick-btns{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-bottom:8px;
-}
-.quick-btns button{
-  flex:1 1 auto;
-  padding:6px 4px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:#0f172a;
-  color:#9ca3af;
-  font-size:11px;
-  cursor:pointer;
-}
-.quick-btns button:hover{
-  border-color:#22c55e;
-  color:#22c55e;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #e8f4ff 0, #f3f5fb 48%, #edf2ff 100%);
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 40px;
+      color: var(--text-main);
+    }
 
-/* نتيجة التحويل بشكل بسيط */
-.result-main{
-  margin-top:12px;
-  text-align:center;
-}
-.result-main p{
-  margin:3px 0;
-}
-.result-main .big{
-  font-size:17px;
-  font-weight:bold;
-}
-.result-main .small{
-  font-size:13px;
-  color:#9ca3af;
-}
+    .page {
+      width: 100%;
+      max-width: 520px;
+    }
 
-/* كرت المطوّر */
-.footer-card{
-  background:#0f172a;padding:22px;border-radius:18px;text-align:center;
-  color:#e5e7eb;border:1px solid #1f2937;line-height:1.8;
-}
-.footer-card h2{margin:0;color:#22c55e;font-size:20px;}
-.footer-card h3{margin:5px 0 10px;font-size:18px;}
-.footer-card a{
-  display:block;padding:10px;border-radius:10px;font-size:15px;
-  text-decoration:none;font-weight:bold;margin-bottom:8px;
-}
-.footer-card a.primary{background:#22c55e;color:#fff;}
-.footer-card a.secondary{background:none;color:#22c55e;border:1px solid #22c55e;margin-bottom:0;}
-</style>
+    /* رأس الصفحة */
+    .hero {
+      background: transparent;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .logo-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 88px;
+      height: 88px;
+      border-radius: 28px;
+      background: radial-gradient(circle at 30% 20%, #42e19b 0, #00a86b 55%, #008657 100%);
+      box-shadow: 0 14px 35px rgba(0, 168, 107, 0.35);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-sub {
+      margin: 4px 0 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* الكارت الرئيسي */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(226,232,240,0.9);
+    }
+
+    @media (min-width: 520px) {
+      .card {
+        padding: 20px 20px 22px;
+      }
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0 0 10px;
+      color: var(--text-main);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      color: var(--text-main);
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--green);
+      background: #ffffff;
+      box-shadow: 0 0 0 1px rgba(0, 168, 107, 0.28);
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      margin-top: 6px;
+    }
+
+    .row > .field {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .swap-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      box-shadow: 0 6px 16px rgba(148,163,184,0.45);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+    }
+
+    .swap-btn:hover {
+      background: var(--green-soft);
+      color: var(--green-dark);
+      transform: rotate(180deg);
+      box-shadow: 0 10px 26px rgba(148,163,184,0.7);
+    }
+
+    .swap-btn:active {
+      transform: rotate(180deg) scale(0.97);
+      box-shadow: 0 3px 12px rgba(148,163,184,0.5);
+    }
+
+    .btn-main {
+      width: 100%;
+      margin-top: 12px;
+      padding: 11px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #00a86b, #17c380);
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 12px 32px rgba(0,168,107,0.45);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 16px 40px rgba(0,168,107,0.6);
+    }
+
+    .btn-main:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 5px 18px rgba(0,168,107,0.45);
+    }
+
+    .btn-main span.icon {
+      font-size: 1.05rem;
+    }
+
+    .top-note {
+      margin: 8px 0 2px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .top-note span {
+      color: var(--green-dark);
+      font-weight: 600;
+    }
+
+    .result-card {
+      margin-top: 14px;
+      padding: 11px 12px;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: none;
+    }
+
+    .result-main {
+      font-size: 0.98rem;
+      margin-bottom: 3px;
+      font-weight: 600;
+    }
+
+    .result-secondary {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .rate-chip {
+      margin-top: 9px;
+      font-size: 0.78rem;
+      padding: 7px 9px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .rate-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .dev-box {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed #e5e7eb;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .dev-name {
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-top: 4px;
+    }
+
+    .dev-box a {
+      color: #0284c7;
+      text-decoration: none;
+    }
+
+    .dev-box a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
 <body>
-<div class="wrapper">
+  <div class="page">
+    <!-- الهيدر -->
+    <header class="hero">
+      <div class="logo-pill">ل.س</div>
+      <h1 class="hero-title">محول الليرة السورية</h1>
+      <p class="hero-sub">تحويل بين الليرة القديمة والجديدة وكافة العملات الرئيسية</p>
+    </header>
 
-  <!-- كرت المحوّل -->
-  <div class="card">
-    <div class="title">محول العملات – الليرة السورية</div>
-    <div class="subtitle">تحويل بين: دولار، يورو، تركي، ريال، دينار أردني، دينار كويتي، ليرة سورية جديدة وقديمة</div>
+    <!-- الكارت -->
+    <main class="card">
+      <p class="section-title">أدخل المبلغ واختر العملة التي تريد التحويل منها وإليها</p>
 
-    <label for="amount">المبلغ</label>
-    <input type="number" id="amount" placeholder="اكتب المبلغ">
+      <!-- مبلغ -->
+      <div class="field">
+        <label for="amount">المبلغ</label>
+        <input id="amount" type="number" min="0" step="0.01" placeholder="مثال: 100 أو 25000 أو 1.5" />
+      </div>
 
-    <!-- أزرار المبالغ الجاهزة -->
-    <div class="quick-btns">
-      <button type="button" class="qbtn" data-val="10000">10 آلاف</button>
-      <button type="button" class="qbtn" data-val="100000">100 ألف</button>
-      <button type="button" class="qbtn" data-val="1000000">1 مليون</button>
-      <button type="button" class="qbtn" data-val="10000000">10 ملايين</button>
-      <button type="button" class="qbtn" data-val="100000000">100 مليون</button>
-    </div>
+      <!-- من / إلى مع زر عكس -->
+      <div class="row">
+        <div class="field">
+          <label for="from">من</label>
+          <select id="from">
+            <option value="SYP_OLD">ليرة سورية قديمة</option>
+            <option value="SYP_NEW">ليرة سورية جديدة</option>
+            <option value="USD">دولار أمريكي $</option>
+            <option value="EUR">يورو €</option>
+            <option value="SAR">ريال سعودي ﷼</option>
+            <option value="JOD">دينار أردني</option>
+            <option value="KWD">دينار كويتي</option>
+            <option value="TRY">ليرة تركية</option>
+            <option value="EGP">جنيه مصري</option>
+          </select>
+        </div>
 
-    <label for="from">من عملة</label>
-    <select id="from">
-      <option value="USD">دولار أمريكي $</option>
-      <option value="EUR">يورو €</option>
-      <option value="TRY">ليرة تركية ₺</option>
-      <option value="SAR">ريال سعودي ﷼</option>
-      <option value="JOD">دينار أردني</option>
-      <option value="KWD">دينار كويتي</option>
-      <option value="SYP_NEW">ليرة سورية جديدة</option>
-      <option value="SYP_OLD">ليرة سورية قديمة</option>
-    </select>
+        <button class="swap-btn" type="button" id="swapBtn" title="عكس الاتجاه">
+          ⇄
+        </button>
 
-    <div class="swap" id="swap">↕</div>
+        <div class="field">
+          <label for="to">إلى</label>
+          <select id="to">
+            <option value="SYP_NEW">ليرة سورية جديدة</option>
+            <option value="SYP_OLD">ليرة سورية قديمة</option>
+            <option value="USD">دولار أمريكي $</option>
+            <option value="EUR">يورو €</option>
+            <option value="SAR">ريال سعودي ﷼</option>
+            <option value="JOD">دينار أردني</option>
+            <option value="KWD">دينار كويتي</option>
+            <option value="TRY">ليرة تركية</option>
+            <option value="EGP">جنيه مصري</option>
+          </select>
+        </div>
+      </div>
 
-    <label for="to">إلى عملة</label>
-    <select id="to">
-      <option value="SYP_NEW">ليرة سورية جديدة</option>
-      <option value="SYP_OLD">ليرة سورية قديمة</option>
-      <option value="USD">دولار أمريكي $</option>
-      <option value="EUR">يورو €</option>
-      <option value="TRY">ليرة تركية ₺</option>
-      <option value="SAR">ريال سعودي ﷼</option>
-      <option value="JOD">دينار أردني</option>
-      <option value="KWD">دينار كويتي</option>
-    </select>
+      <!-- ملاحظة 100 قديمة = 1 جديدة -->
+      <p class="top-note">
+        الأساس: <span>كل 100 ليرة قديمة = 1 ليرة جديدة</span>  
+        (أي حذف صفرين من العملة القديمة)
+      </p>
 
-    <button onclick="convert()">تحويل</button>
+      <!-- زر تحويل -->
+      <button class="btn-main" id="convertBtn" type="button">
+        <span class="icon">💱</span>
+        <span>تحويل</span>
+      </button>
 
-    <!-- النتيجة البسيطة -->
-    <div class="result-main" id="resultBox" style="display:none;">
-      <p id="resultText" class="big"></p>
-      <p id="rateInfo" class="small"></p>
-    </div>
+      <!-- النتيجة -->
+      <div class="result-card" id="resultBox">
+        <div class="result-main" id="resultMain"></div>
+        <div class="result-secondary" id="resultSecondary"></div>
 
-    <div class="hint">
-      الأساس: <b>كل 100 ليرة قديمة = 1 ليرة جديدة</b><br>
-      الأسعار المستخدمة مأخوذة من آخر تحديث (الليرة القديمة) ثم نحولها تلقائياً للجديدة.
-    </div>
+        <div class="rate-chip" id="rateChip">
+          <div class="rate-dot"></div>
+          <span id="rateInfo"></span>
+        </div>
+      </div>
+
+      <!-- المطور -->
+      <div class="dev-box">
+        <div>المطور 👨🏻‍💻</div>
+        <div class="dev-name">Hussein ALALI ALHASAN</div>
+        <div>
+          Telegram:
+          <a href="https://t.me/hussain1alali" target="_blank">@hussain1alali</a>
+        </div>
+        <div>
+          Instagram:
+          <a href="https://instagram.com/husseinalali515" target="_blank">@husseinalali515</a>
+        </div>
+      </div>
+    </main>
   </div>
 
-  <!-- بطاقة المطور -->
-  <div class="footer-card">
-    <h2>👨‍💻 المطـور</h2>
-    <h3>Hussein ALALI ALHASAN</h3>
-    <a href="https://t.me/hussain1alali" target="_blank" class="primary">
-      💬 Telegram: @hussain1alali
-    </a>
-    <a href="https://instagram.com/husseinalali515" target="_blank" class="secondary">
-      📸 Instagram: @husseinalali515
-    </a>
-  </div>
+  <script>
+    // الأسعار مقابل الليرة السورية القديمة (القيم تقريبية ويمكن تعديلها من هنا)
+    const ratesOld = {
+      SYP_OLD: 1,        // ليرة قديمة
+      SYP_NEW: 100,      // 1 جديدة = 100 قديمة
+      USD: 11925,        // دولار
+      EUR: 13998,        // يورو
+      TRY: 278,          // ليرة تركية
+      SAR: 3180,         // ريال سعودي
+      EGP: 251,          // جنيه مصري
+      JOD: 16831,        // دينار أردني
+      KWD: 38762         // دينار كويتي
+    };
 
-</div>
+    function labelOfCurrency(code) {
+      switch (code) {
+        case "SYP_NEW": return "ليرة سورية جديدة";
+        case "SYP_OLD": return "ليرة سورية قديمة";
+        case "USD": return "دولار أمريكي $";
+        case "EUR": return "يورو €";
+        case "SAR": return "ريال سعودي";
+        case "JOD": return "دينار أردني";
+        case "KWD": return "دينار كويتي";
+        case "TRY": return "ليرة تركية";
+        case "EGP": return "جنيه مصري";
+        default: return code;
+      }
+    }
 
-<script>
-// ========= الإعداد الأساسي =========
+    const amountInput   = document.getElementById("amount");
+    const fromSelect    = document.getElementById("from");
+    const toSelect      = document.getElementById("to");
+    const swapBtn       = document.getElementById("swapBtn");
+    const convertBtn    = document.getElementById("convertBtn");
+    const resultBox     = document.getElementById("resultBox");
+    const resultMain    = document.getElementById("resultMain");
+    const resultSecondary = document.getElementById("resultSecondary");
+    const rateInfoSpan  = document.getElementById("rateInfo");
 
-// كل 100 ليرة قديمة = 1 ليرة جديدة
-const OLD_PER_NEW = 100;
-const OLD_TO_NEW  = 1 / OLD_PER_NEW;
-const NEW_TO_OLD  = OLD_PER_NEW;
+    function computeRate(from, to) {
+      return ratesOld[to] / ratesOld[from];
+    }
 
-// الأسعار من موقع الليرة اليوم (بالليرة القديمة لكل 1 وحدة)
-// إذا تغيّر السعر بس عدّل هذه الأرقام:
-let ratesOld = {
-  USD: 11925,  // دولار أمريكي قديم
-  EUR: 13998,  // يورو
-  TRY: 278,    // ليرة تركية
-  SAR: 3180,   // ريال سعودي
-  JOD: 16831,  // دينار أردني
-  KWD: 38762   // دينار كويتي
-};
+    function updateRateInfo() {
+      const from = fromSelect.value;
+      const to   = toSelect.value;
+      if (!from || !to) return;
 
-// تحويل هذه الأسعار إلى ليرة سورية جديدة (العملة الأساس)
-let perNew = {
-  USD: ratesOld.USD * OLD_TO_NEW, // 11925 قديمة -> 119.25 جديدة
-  EUR: ratesOld.EUR * OLD_TO_NEW,
-  TRY: ratesOld.TRY * OLD_TO_NEW,
-  SAR: ratesOld.SAR * OLD_TO_NEW,
-  JOD: ratesOld.JOD * OLD_TO_NEW,
-  KWD: ratesOld.KWD * OLD_TO_NEW,
-  SYP_NEW: 1,               // 1 ليرة جديدة = 1 ليرة جديدة
-  SYP_OLD: OLD_TO_NEW       // 1 ليرة قديمة = 0.01 جديدة
-};
+      const rate = computeRate(from, to);
+      rateInfoSpan.textContent =
+        `1 ${labelOfCurrency(from)} ≈ ${rate.toFixed(4)} ${labelOfCurrency(to)}`;
+    }
 
-// ========= زر عكس العملات =========
-document.getElementById("swap").onclick = () => {
-  const from = document.getElementById("from");
-  const to   = document.getElementById("to");
-  [from.value, to.value] = [to.value, from.value];
-};
+    // عكس العملات
+    swapBtn.addEventListener("click", () => {
+      const oldFrom = fromSelect.value;
+      fromSelect.value = toSelect.value;
+      toSelect.value = oldFrom;
+      updateRateInfo();
+    });
 
-// ========= أسماء العملات =========
-function label(code){
-  switch(code){
-    case "USD": return "دولار أمريكي";
-    case "EUR": return "يورو";
-    case "TRY": return "ليرة تركية";
-    case "SAR": return "ريال سعودي";
-    case "JOD": return "دينار أردني";
-    case "KWD": return "دينار كويتي";
-    case "SYP_NEW": return "ليرة سورية جديدة";
-    case "SYP_OLD": return "ليرة سورية قديمة";
-    default: return code;
-  }
-}
+    // أول تحديث
+    updateRateInfo();
+    fromSelect.addEventListener("change", updateRateInfo);
+    toSelect.addEventListener("change", updateRateInfo);
 
-// تنسيق الأرقام بالفواصل
-function fmt(n){
-  return n.toLocaleString('ar-SY', {maximumFractionDigits:2});
-}
+    // زر التحويل
+    convertBtn.addEventListener("click", () => {
+      const raw = amountInput.value.replace(",", ".");
+      const amount = parseFloat(raw);
+      const from = fromSelect.value;
+      const to   = toSelect.value;
 
-// ========= عملية التحويل =========
-function convert(){
-  const amount = parseFloat(document.getElementById("amount").value);
-  const from   = document.getElementById("from").value;
-  const to     = document.getElementById("to").value;
-  const box    = document.getElementById("resultBox");
-  const text   = document.getElementById("resultText");
-  const info   = document.getElementById("rateInfo");
+      if (isNaN(amount) || amount <= 0) {
+        resultBox.style.display = "block";
+        resultMain.textContent = "❗ الرجاء إدخال مبلغ صحيح أكبر من 0";
+        resultSecondary.textContent = "";
+        return;
+      }
 
-  if(isNaN(amount) || amount <= 0){
-    alert("اكتب مبلغ صحيح أولاً");
-    return;
-  }
+      if (from === to) {
+        resultBox.style.display = "block";
+        resultMain.textContent =
+          `${amount.toLocaleString("ar-SY", { maximumFractionDigits: 2 })} ${labelOfCurrency(to)}`;
+        resultSecondary.textContent = "نفس العملة، لا يوجد تغيير في القيمة.";
+        return;
+      }
 
-  // 1) نحول المبلغ إلى ليرة جديدة
-  const inNew = amount * perNew[from];
-  // 2) من ليرة جديدة إلى العملة المطلوبة
-  const result = inNew / perNew[to];
+      // نحو الليرة القديمة ثم إلى الهدف
+      const amountInOld = amount * ratesOld[from];
+      const result = amountInOld / ratesOld[to];
 
-  text.textContent = `${fmt(amount)} ${label(from)} = ${fmt(result)} ${label(to)}`;
+      const formattedAmount =
+        amount.toLocaleString("ar-SY", { maximumFractionDigits: 2 });
 
-  const oneRate = perNew[from] / perNew[to];
-  info.textContent = `1 ${label(from)} = ${fmt(oneRate)} ${label(to)}`;
+      const formattedResult =
+        (result >= 1)
+          ? result.toLocaleString("ar-SY", { maximumFractionDigits: 2 })
+          : result.toLocaleString("ar-SY", { maximumFractionDigits: 6 });
 
-  box.style.display = "block";
-}
+      resultBox.style.display = "block";
+      resultMain.textContent =
+        `${formattedAmount} ${labelOfCurrency(from)} = ${formattedResult} ${labelOfCurrency(to)}`;
 
-// ===== أزرار المبالغ الجاهزة =====
-const amountInput = document.getElementById("amount");
-document.querySelectorAll(".qbtn").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const val = btn.getAttribute("data-val");
-    amountInput.value = val;
-    convert(); // تحويل مباشر
-  });
-});
-</script>
-
+      const rate = computeRate(from, to);
+      resultSecondary.textContent =
+        `السعر التقريبي الآن: 1 ${labelOfCurrency(from)} ≈ ${rate.toFixed(4)} ${labelOfCurrency(to)}. ` +
+        "القيم تقريبية ويمكن أن تتغير حسب السوق.";
+    });
+  </script>
 </body>
 </html>
