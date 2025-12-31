@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>محول العملات – الليرة السورية</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --bg:#0f172a;--card:#020617;--accent:#22c55e;
+  --text:#e5e7eb;--sub:#9ca3af;--border:#1f2937;
+}
+body{
+  margin:0;font-family:sans-serif;
+  background:radial-gradient(circle at top,#1e293b 0,#020617 55%);
+  min-height:100vh;display:flex;justify-content:center;align-items:flex-start;
+  padding:16px;color:var(--text);
+}
+.wrapper{width:100%;max-width:460px;}
+.card{
+  background:#020617;border-radius:22px;border:1px solid var(--border);
+  box-shadow:0 24px 60px rgba(15,23,42,.7);
+  width:100%;padding:22px 20px;margin-bottom:18px;
+}
+.title{font-size:1.15rem;font-weight:700;margin-bottom:6px;text-align:center;}
+.subtitle{text-align:center;font-size:.8rem;color:var(--sub);margin-bottom:18px;}
+label{font-size:.8rem;color:var(--sub);display:block;margin:4px 0;}
+input,select{
+  width:100%;padding:10px;margin:4px 0 10px;border-radius:10px;
+  border:1px solid var(--border);background:#0f172a;color:var(--text);font-size:15px;
+}
+button{
+  width:100%;padding:10px;margin-top:8px;border-radius:999px;border:none;
+  background:#22c55e;color:#fff;font-size:16px;cursor:pointer;
+}
+button:active{transform:scale(.97);}
+.swap{
+  width:38px;height:38px;border:1px solid var(--border);border-radius:50%;
+  display:flex;justify-content:center;align-items:center;background:#0f172a;
+  cursor:pointer;font-size:18px;margin:auto;margin-top:-4px;margin-bottom:4px;
+}
+.hint{text-align:center;font-size:12px;color:#9ca3af;margin-top:8px;line-height:1.6;}
+
+/* أزرار المبالغ الجاهزة */
+.quick-btns{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:8px;
+}
+.quick-btns button{
+  flex:1 1 auto;
+  padding:6px 4px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#0f172a;
+  color:#9ca3af;
+  font-size:11px;
+  cursor:pointer;
+}
+.quick-btns button:hover{
+  border-color:#22c55e;
+  color:#22c55e;
+}
+
+/* نتيجة التحويل بشكل بسيط */
+.result-main{
+  margin-top:12px;
+  text-align:center;
+}
+.result-main p{
+  margin:3px 0;
+}
+.result-main .big{
+  font-size:17px;
+  font-weight:bold;
+}
+.result-main .small{
+  font-size:13px;
+  color:#9ca3af;
+}
+
+/* كرت المطوّر */
+.footer-card{
+  background:#0f172a;padding:22px;border-radius:18px;text-align:center;
+  color:#e5e7eb;border:1px solid #1f2937;line-height:1.8;
+}
+.footer-card h2{margin:0;color:#22c55e;font-size:20px;}
+.footer-card h3{margin:5px 0 10px;font-size:18px;}
+.footer-card a{
+  display:block;padding:10px;border-radius:10px;font-size:15px;
+  text-decoration:none;font-weight:bold;margin-bottom:8px;
+}
+.footer-card a.primary{background:#22c55e;color:#fff;}
+.footer-card a.secondary{background:none;color:#22c55e;border:1px solid #22c55e;margin-bottom:0;}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+
+  <!-- كرت المحوّل -->
+  <div class="card">
+    <div class="title">محول العملات – الليرة السورية</div>
+    <div class="subtitle">تحويل بين: دولار، يورو، تركي، ريال، دينار أردني، دينار كويتي، ليرة سورية جديدة وقديمة</div>
+
+    <label for="amount">المبلغ</label>
+    <input type="number" id="amount" placeholder="اكتب المبلغ">
+
+    <!-- أزرار المبالغ الجاهزة -->
+    <div class="quick-btns">
+      <button type="button" class="qbtn" data-val="10000">10 آلاف</button>
+      <button type="button" class="qbtn" data-val="100000">100 ألف</button>
+      <button type="button" class="qbtn" data-val="1000000">1 مليون</button>
+      <button type="button" class="qbtn" data-val="10000000">10 ملايين</button>
+      <button type="button" class="qbtn" data-val="100000000">100 مليون</button>
+    </div>
+
+    <label for="from">من عملة</label>
+    <select id="from">
+      <option value="USD">دولار أمريكي $</option>
+      <option value="EUR">يورو €</option>
+      <option value="TRY">ليرة تركية ₺</option>
+      <option value="SAR">ريال سعودي ﷼</option>
+      <option value="JOD">دينار أردني</option>
+      <option value="KWD">دينار كويتي</option>
+      <option value="SYP_NEW">ليرة سورية جديدة</option>
+      <option value="SYP_OLD">ليرة سورية قديمة</option>
+    </select>
+
+    <div class="swap" id="swap">↕</div>
+
+    <label for="to">إلى عملة</label>
+    <select id="to">
+      <option value="SYP_NEW">ليرة سورية جديدة</option>
+      <option value="SYP_OLD">ليرة سورية قديمة</option>
+      <option value="USD">دولار أمريكي $</option>
+      <option value="EUR">يورو €</option>
+      <option value="TRY">ليرة تركية ₺</option>
+      <option value="SAR">ريال سعودي ﷼</option>
+      <option value="JOD">دينار أردني</option>
+      <option value="KWD">دينار كويتي</option>
+    </select>
+
+    <button onclick="convert()">تحويل</button>
+
+    <!-- النتيجة البسيطة -->
+    <div class="result-main" id="resultBox" style="display:none;">
+      <p id="resultText" class="big"></p>
+      <p id="rateInfo" class="small"></p>
+    </div>
+
+    <div class="hint">
+      الأساس: <b>كل 100 ليرة قديمة = 1 ليرة جديدة</b><br>
+      الأسعار المستخدمة مأخوذة من آخر تحديث (الليرة القديمة) ثم نحولها تلقائياً للجديدة.
+    </div>
+  </div>
+
+  <!-- بطاقة المطور -->
+  <div class="footer-card">
+    <h2>👨‍💻 المطـور</h2>
+    <h3>Hussein ALALI ALHASAN</h3>
+    <a href="https://t.me/hussain1alali" target="_blank" class="primary">
+      💬 Telegram: @hussain1alali
+    </a>
+    <a href="https://instagram.com/husseinalali515" target="_blank" class="secondary">
+      📸 Instagram: @husseinalali515
+    </a>
+  </div>
+
+</div>
+
+<script>
+// ========= الإعداد الأساسي =========
+
+// كل 100 ليرة قديمة = 1 ليرة جديدة
+const OLD_PER_NEW = 100;
+const OLD_TO_NEW  = 1 / OLD_PER_NEW;
+const NEW_TO_OLD  = OLD_PER_NEW;
+
+// الأسعار من موقع الليرة اليوم (بالليرة القديمة لكل 1 وحدة)
+// إذا تغيّر السعر بس عدّل هذه الأرقام:
+let ratesOld = {
+  USD: 11925,  // دولار أمريكي قديم
+  EUR: 13998,  // يورو
+  TRY: 278,    // ليرة تركية
+  SAR: 3180,   // ريال سعودي
+  JOD: 16831,  // دينار أردني
+  KWD: 38762   // دينار كويتي
+};
+
+// تحويل هذه الأسعار إلى ليرة سورية جديدة (العملة الأساس)
+let perNew = {
+  USD: ratesOld.USD * OLD_TO_NEW, // 11925 قديمة -> 119.25 جديدة
+  EUR: ratesOld.EUR * OLD_TO_NEW,
+  TRY: ratesOld.TRY * OLD_TO_NEW,
+  SAR: ratesOld.SAR * OLD_TO_NEW,
+  JOD: ratesOld.JOD * OLD_TO_NEW,
+  KWD: ratesOld.KWD * OLD_TO_NEW,
+  SYP_NEW: 1,               // 1 ليرة جديدة = 1 ليرة جديدة
+  SYP_OLD: OLD_TO_NEW       // 1 ليرة قديمة = 0.01 جديدة
+};
+
+// ========= زر عكس العملات =========
+document.getElementById("swap").onclick = () => {
+  const from = document.getElementById("from");
+  const to   = document.getElementById("to");
+  [from.value, to.value] = [to.value, from.value];
+};
+
+// ========= أسماء العملات =========
+function label(code){
+  switch(code){
+    case "USD": return "دولار أمريكي";
+    case "EUR": return "يورو";
+    case "TRY": return "ليرة تركية";
+    case "SAR": return "ريال سعودي";
+    case "JOD": return "دينار أردني";
+    case "KWD": return "دينار كويتي";
+    case "SYP_NEW": return "ليرة سورية جديدة";
+    case "SYP_OLD": return "ليرة سورية قديمة";
+    default: return code;
+  }
+}
+
+// تنسيق الأرقام بالفواصل
+function fmt(n){
+  return n.toLocaleString('ar-SY', {maximumFractionDigits:2});
+}
+
+// ========= عملية التحويل =========
+function convert(){
+  const amount = parseFloat(document.getElementById("amount").value);
+  const from   = document.getElementById("from").value;
+  const to     = document.getElementById("to").value;
+  const box    = document.getElementById("resultBox");
+  const text   = document.getElementById("resultText");
+  const info   = document.getElementById("rateInfo");
+
+  if(isNaN(amount) || amount <= 0){
+    alert("اكتب مبلغ صحيح أولاً");
+    return;
+  }
+
+  // 1) نحول المبلغ إلى ليرة جديدة
+  const inNew = amount * perNew[from];
+  // 2) من ليرة جديدة إلى العملة المطلوبة
+  const result = inNew / perNew[to];
+
+  text.textContent = `${fmt(amount)} ${label(from)} = ${fmt(result)} ${label(to)}`;
+
+  const oneRate = perNew[from] / perNew[to];
+  info.textContent = `1 ${label(from)} = ${fmt(oneRate)} ${label(to)}`;
+
+  box.style.display = "block";
+}
+
+// ===== أزرار المبالغ الجاهزة =====
+const amountInput = document.getElementById("amount");
+document.querySelectorAll(".qbtn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const val = btn.getAttribute("data-val");
+    amountInput.value = val;
+    convert(); // تحويل مباشر
+  });
+});
+</script>
+
+</body>
+</html>
