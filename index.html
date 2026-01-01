@@ -2,10 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>محول الليرة السورية والعملات</title>
+  <title>محول العملات السورية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* ألوان عامة قريبة من التصميم اللي أرسلته */
     :root {
       --green: #00a86b;
       --green-soft: #e5f7f0;
@@ -41,9 +40,7 @@
       max-width: 520px;
     }
 
-    /* رأس الصفحة */
     .hero {
-      background: transparent;
       text-align: center;
       margin-bottom: 18px;
     }
@@ -75,19 +72,12 @@
       color: var(--text-muted);
     }
 
-    /* الكارت الرئيسي */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 18px 16px 18px;
+      padding: 20px 18px 18px;
       box-shadow: var(--shadow-soft);
       border: 1px solid rgba(226,232,240,0.9);
-    }
-
-    @media (min-width: 520px) {
-      .card {
-        padding: 20px 20px 22px;
-      }
     }
 
     .section-title {
@@ -116,8 +106,6 @@
       transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
       color: var(--text-main);
       appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
     }
 
     input:focus,
@@ -225,6 +213,7 @@
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       display: none;
+      white-space: pre-line;
     }
 
     .result-main {
@@ -236,26 +225,7 @@
     .result-secondary {
       font-size: 0.8rem;
       color: var(--text-muted);
-    }
-
-    .rate-chip {
-      margin-top: 9px;
-      font-size: 0.78rem;
-      padding: 7px 9px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #ecfdf5;
-      color: #166534;
-      border: 1px solid #bbf7d0;
-    }
-
-    .rate-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #22c55e;
+      margin-top: 4px;
     }
 
     .dev-box {
@@ -285,24 +255,20 @@
 </head>
 <body>
   <div class="page">
-    <!-- الهيدر -->
     <header class="hero">
       <div class="logo-pill">ل.س</div>
-      <h1 class="hero-title">محول الليرة السورية</h1>
-      <p class="hero-sub">تحويل بين الليرة القديمة والجديدة وكافة العملات الرئيسية</p>
+      <h1 class="hero-title">محول العملات السورية</h1>
+      <p class="hero-sub">ليرة قديمة / ليرة جديدة / دولار / يورو / ريال / دينار...</p>
     </header>
 
-    <!-- الكارت -->
     <main class="card">
       <p class="section-title">أدخل المبلغ واختر العملة التي تريد التحويل منها وإليها</p>
 
-      <!-- مبلغ -->
       <div class="field">
         <label for="amount">المبلغ</label>
         <input id="amount" type="number" min="0" step="0.01" placeholder="مثال: 100 أو 25000 أو 1.5" />
       </div>
 
-      <!-- من / إلى مع زر عكس -->
       <div class="row">
         <div class="field">
           <label for="from">من</label>
@@ -339,30 +305,21 @@
         </div>
       </div>
 
-      <!-- ملاحظة 100 قديمة = 1 جديدة -->
       <p class="top-note">
         الأساس: <span>كل 100 ليرة قديمة = 1 ليرة جديدة</span>  
         (أي حذف صفرين من العملة القديمة)
       </p>
 
-      <!-- زر تحويل -->
       <button class="btn-main" id="convertBtn" type="button">
         <span class="icon">💱</span>
         <span>تحويل</span>
       </button>
 
-      <!-- النتيجة -->
       <div class="result-card" id="resultBox">
         <div class="result-main" id="resultMain"></div>
         <div class="result-secondary" id="resultSecondary"></div>
-
-        <div class="rate-chip" id="rateChip">
-          <div class="rate-dot"></div>
-          <span id="rateInfo"></span>
-        </div>
       </div>
 
-      <!-- المطور -->
       <div class="dev-box">
         <div>المطور 👨🏻‍💻</div>
         <div class="dev-name">Hussein ALALI ALHASAN</div>
@@ -379,7 +336,7 @@
   </div>
 
   <script>
-    // الأسعار مقابل الليرة السورية القديمة (القيم تقريبية ويمكن تعديلها من هنا)
+    // الأسعار مقابل الليرة السورية القديمة
     const ratesOld = {
       SYP_OLD: 1,        // ليرة قديمة
       SYP_NEW: 100,      // 1 جديدة = 100 قديمة
@@ -407,49 +364,30 @@
       }
     }
 
-    const amountInput   = document.getElementById("amount");
-    const fromSelect    = document.getElementById("from");
-    const toSelect      = document.getElementById("to");
-    const swapBtn       = document.getElementById("swapBtn");
-    const convertBtn    = document.getElementById("convertBtn");
-    const resultBox     = document.getElementById("resultBox");
-    const resultMain    = document.getElementById("resultMain");
-    const resultSecondary = document.getElementById("resultSecondary");
-    const rateInfoSpan  = document.getElementById("rateInfo");
+    const amountInput      = document.getElementById("amount");
+    const fromSelect       = document.getElementById("from");
+    const toSelect         = document.getElementById("to");
+    const swapBtn          = document.getElementById("swapBtn");
+    const convertBtn       = document.getElementById("convertBtn");
+    const resultBox        = document.getElementById("resultBox");
+    const resultMain       = document.getElementById("resultMain");
+    const resultSecondary  = document.getElementById("resultSecondary");
 
-    function computeRate(from, to) {
-      return ratesOld[to] / ratesOld[from];
+    function rateFromTo(from, to) {
+      return ratesOld[from] / ratesOld[to];
     }
 
-    function updateRateInfo() {
-      const from = fromSelect.value;
-      const to   = toSelect.value;
-      if (!from || !to) return;
-
-      const rate = computeRate(from, to);
-      rateInfoSpan.textContent =
-        `1 ${labelOfCurrency(from)} ≈ ${rate.toFixed(4)} ${labelOfCurrency(to)}`;
-    }
-
-    // عكس العملات
     swapBtn.addEventListener("click", () => {
       const oldFrom = fromSelect.value;
       fromSelect.value = toSelect.value;
       toSelect.value = oldFrom;
-      updateRateInfo();
     });
 
-    // أول تحديث
-    updateRateInfo();
-    fromSelect.addEventListener("change", updateRateInfo);
-    toSelect.addEventListener("change", updateRateInfo);
-
-    // زر التحويل
     convertBtn.addEventListener("click", () => {
-      const raw = amountInput.value.replace(",", ".");
+      const raw    = amountInput.value.replace(",", ".");
       const amount = parseFloat(raw);
-      const from = fromSelect.value;
-      const to   = toSelect.value;
+      const from   = fromSelect.value;
+      const to     = toSelect.value;
 
       if (isNaN(amount) || amount <= 0) {
         resultBox.style.display = "block";
@@ -459,14 +397,17 @@
       }
 
       if (from === to) {
+        const formattedAmount =
+          amount.toLocaleString("ar-SY", { maximumFractionDigits: 2 });
+
         resultBox.style.display = "block";
         resultMain.textContent =
-          `${amount.toLocaleString("ar-SY", { maximumFractionDigits: 2 })} ${labelOfCurrency(to)}`;
-        resultSecondary.textContent = "نفس العملة، لا يوجد تغيير في القيمة.";
+          `${formattedAmount} ${labelOfCurrency(from)} (نفس العملة، لا يوجد تحويل)`;
+        resultSecondary.textContent = "";
         return;
       }
 
-      // نحو الليرة القديمة ثم إلى الهدف
+      // من أي عملة → ليرة قديمة → العملة الهدف
       const amountInOld = amount * ratesOld[from];
       const result = amountInOld / ratesOld[to];
 
@@ -482,9 +423,13 @@
       resultMain.textContent =
         `${formattedAmount} ${labelOfCurrency(from)} = ${formattedResult} ${labelOfCurrency(to)}`;
 
-      const rate = computeRate(from, to);
+      const r1 = rateFromTo(from, to);
+      const r2 = rateFromTo(to, from);
+
       resultSecondary.textContent =
-        `السعر التقريبي الآن: 1 ${labelOfCurrency(from)} ≈ ${rate.toFixed(4)} ${labelOfCurrency(to)}. ` +
+        `السعر التقريبي الآن:\n` +
+        `• 1 ${labelOfCurrency(from)} ≈ ${r1.toFixed(4)} ${labelOfCurrency(to)}\n` +
+        `• 1 ${labelOfCurrency(to)} ≈ ${r2.toFixed(4)} ${labelOfCurrency(from)}\n` +
         "القيم تقريبية ويمكن أن تتغير حسب السوق.";
     });
   </script>
