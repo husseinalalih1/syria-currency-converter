@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9T487QRB8F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9T487QRB8F');
+  </script>
+
   <meta charset="UTF-8" />
   <title>محول العملات السورية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,264 +29,70 @@
       --radius-pill: 999px;
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
+    * { box-sizing: border-box; font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
     body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #e8f4ff 0, #f3f5fb 48%, #edf2ff 100%);
-      display: flex;
-      justify-content: center;
-      padding: 24px 12px 40px;
-      color: var(--text-main);
+      margin: 0; min-height: 100vh;
+      background: radial-gradient(circle at top,#e8f4ff 0,#f3f5fb 48%,#edf2ff 100%);
+      display: flex; justify-content: center; padding: 24px 12px 40px; color: var(--text-main);
     }
-
-    .page {
-      width: 100%;
-      max-width: 520px;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 18px;
-    }
-
+    .page { width: 100%; max-width: 520px; }
+    .hero { text-align: center; margin-bottom:18px; }
     .logo-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 88px;
-      height: 88px;
-      border-radius: 28px;
-      background: radial-gradient(circle at 30% 20%, #42e19b 0, #00a86b 55%, #008657 100%);
-      box-shadow: 0 14px 35px rgba(0, 168, 107, 0.35);
-      color: #fff;
-      font-weight: 800;
-      font-size: 1.4rem;
-      margin-bottom: 10px;
+      display:inline-flex;align-items:center;justify-content:center;
+      width:88px;height:88px;border-radius:28px;
+      background: radial-gradient(circle at 30% 20%,#42e19b 0,#00a86b 55%,#008657 100%);
+      color:#fff;font-weight:800;font-size:1.4rem;margin-bottom:10px;
     }
-
-    .hero-title {
-      margin: 0;
-      font-size: 1.35rem;
-      letter-spacing: 0.03em;
+    .hero-title{margin:0;font-size:1.35rem;} .hero-sub{font-size:0.85rem;color:var(--text-muted);}
+    .card{background:#fff;border-radius:24px;padding:20px;box-shadow:0 18px 40px rgba(15,23,42,.08);}
+    label{display:block;font-size:0.82rem;color:var(--text-muted);}
+    input,select{
+      width:100%;padding:11px;border-radius:14px;border:1px solid #d1d5db;background:#f9fafb;
+      font-size:0.95rem;transition:.2s;color:var(--text-main)
     }
-
-    .hero-sub {
-      margin: 4px 0 0;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    input:focus,select:focus{border-color:#00a86b;background:#fff;box-shadow:0 0 0 1px rgba(0,168,107,.3);}
+    .field{margin-bottom:12px;} .row{display:flex;gap:8px;align-items:flex-end;margin-top:6px;}
+    .row>.field{flex:1;} .swap-btn{
+      width:40px;height:40px;border-radius:50%;border:1px solid #d1d5db;
+      background:#fff;cursor:pointer;font-size:1.25rem;color:#6b7280;transition:.2s;
     }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px 18px 18px;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(226,232,240,0.9);
+    .swap-btn:hover{background:#e5f7f0;color:#008657;transform:rotate(180deg);}
+    .btn-main{
+      width:100%;padding:11px;border:none;border-radius:999px;margin-top:12px;
+      background:linear-gradient(90deg,#00a86b,#17c380);color:#fff;font-weight:600;font-size:.95rem;
+      cursor:pointer;transition:.2s;box-shadow:0 12px 32px rgba(0,168,107,.45);
     }
-
-    .section-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin: 0 0 10px;
-      color: var(--text-main);
-    }
-
-    label {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 11px 13px;
-      border-radius: 14px;
-      border: 1px solid #d1d5db;
-      background: #f9fafb;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-      color: var(--text-main);
-      appearance: none;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: var(--green);
-      background: #ffffff;
-      box-shadow: 0 0 0 1px rgba(0, 168, 107, 0.28);
-    }
-
-    .field {
-      margin-bottom: 12px;
-    }
-
-    .row {
-      display: flex;
-      gap: 8px;
-      align-items: flex-end;
-      margin-top: 6px;
-    }
-
-    .row > .field {
-      flex: 1;
-      margin-bottom: 0;
-    }
-
-    .swap-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid #d1d5db;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--text-muted);
-      font-size: 1.25rem;
-      box-shadow: 0 6px 16px rgba(148,163,184,0.45);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
-    }
-
-    .swap-btn:hover {
-      background: var(--green-soft);
-      color: var(--green-dark);
-      transform: rotate(180deg);
-      box-shadow: 0 10px 26px rgba(148,163,184,0.7);
-    }
-
-    .swap-btn:active {
-      transform: rotate(180deg) scale(0.97);
-      box-shadow: 0 3px 12px rgba(148,163,184,0.5);
-    }
-
-    .btn-main {
-      width: 100%;
-      margin-top: 12px;
-      padding: 11px 14px;
-      border-radius: var(--radius-pill);
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(90deg, #00a86b, #17c380);
-      color: white;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.03em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 12px 32px rgba(0,168,107,0.45);
-      transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
-    }
-
-    .btn-main:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-      box-shadow: 0 16px 40px rgba(0,168,107,0.6);
-    }
-
-    .btn-main:active {
-      transform: translateY(1px) scale(0.99);
-      box-shadow: 0 5px 18px rgba(0,168,107,0.45);
-    }
-
-    .btn-main span.icon {
-      font-size: 1.05rem;
-    }
-
-    .top-note {
-      margin: 8px 0 2px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .top-note span {
-      color: var(--green-dark);
-      font-weight: 600;
-    }
-
-    .result-card {
-      margin-top: 14px;
-      padding: 11px 12px;
-      border-radius: var(--radius-md);
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      display: none;
-      white-space: pre-line;
-    }
-
-    .result-main {
-      font-size: 0.98rem;
-      margin-bottom: 3px;
-      font-weight: 600;
-    }
-
-    .result-secondary {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .dev-box {
-      margin-top: 16px;
-      padding-top: 10px;
-      border-top: 1px dashed #e5e7eb;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .dev-name {
-      font-weight: 700;
-      color: var(--green-dark);
-      margin-top: 4px;
-    }
-
-    .dev-box a {
-      color: #0284c7;
-      text-decoration: none;
-    }
-
-    .dev-box a:hover {
-      text-decoration: underline;
-    }
+    .result-card{margin-top:14px;padding:12px;background:#f9fafb;border-radius:16px;border:1px solid #e5e7eb;display:none;}
+    .result-main{font-size:1rem;font-weight:600;} .result-secondary{font-size:.8rem;color:#6b7280;}
+    .dev-box{text-align:center;margin-top:18px;font-size:.8rem;color:#6b7280;border-top:1px dashed #e5e7eb;padding-top:10px;}
+    .dev-name{font-weight:700;color:#008657;}
+    .dev-box a{color:#0284c7;text-decoration:none;} .dev-box a:hover{text-decoration:underline;}
   </style>
 </head>
+
 <body>
   <div class="page">
     <header class="hero">
       <div class="logo-pill">ل.س</div>
       <h1 class="hero-title">محول العملات السورية</h1>
-      <p class="hero-sub">ليرة قديمة / ليرة جديدة / دولار / يورو / ريال / دينار...</p>
+      <p class="hero-sub">ليرة قديمة / جديدة / دولار / يورو / ريال / دينار...</p>
     </header>
 
     <main class="card">
-      <p class="section-title">أدخل المبلغ واختر العملة التي تريد التحويل منها وإليها</p>
-
       <div class="field">
         <label for="amount">المبلغ</label>
-        <input id="amount" type="number" min="0" step="0.01" placeholder="مثال: 100 أو 25000 أو 1.5" />
+        <input id="amount" type="number" placeholder="مثال: 100 أو 25000 أو 1.5">
       </div>
 
       <div class="row">
         <div class="field">
-          <label for="from">من</label>
+          <label>من</label>
           <select id="from">
             <option value="SYP_OLD">ليرة سورية قديمة</option>
             <option value="SYP_NEW">ليرة سورية جديدة</option>
-            <option value="USD">دولار أمريكي $</option>
+            <option value="USD">دولار $</option>
             <option value="EUR">يورو €</option>
-            <option value="SAR">ريال سعودي ﷼</option>
+            <option value="SAR">ريال سعودي</option>
             <option value="JOD">دينار أردني</option>
             <option value="KWD">دينار كويتي</option>
             <option value="TRY">ليرة تركية</option>
@@ -285,18 +100,16 @@
           </select>
         </div>
 
-        <button class="swap-btn" type="button" id="swapBtn" title="عكس الاتجاه">
-          ⇄
-        </button>
+        <button class="swap-btn" id="swapBtn">⇄</button>
 
         <div class="field">
-          <label for="to">إلى</label>
+          <label>إلى</label>
           <select id="to">
-            <option value="SYP_NEW">ليرة سورية جديدة</option>
-            <option value="SYP_OLD">ليرة سورية قديمة</option>
-            <option value="USD">دولار أمريكي $</option>
+            <option value="SYP_NEW">ليرة جديدة</option>
+            <option value="SYP_OLD">ليرة قديمة</option>
+            <option value="USD">دولار $</option>
             <option value="EUR">يورو €</option>
-            <option value="SAR">ريال سعودي ﷼</option>
+            <option value="SAR">ريال</option>
             <option value="JOD">دينار أردني</option>
             <option value="KWD">دينار كويتي</option>
             <option value="TRY">ليرة تركية</option>
@@ -305,15 +118,7 @@
         </div>
       </div>
 
-      <p class="top-note">
-        الأساس: <span>كل 100 ليرة قديمة = 1 ليرة جديدة</span>  
-        (أي حذف صفرين من العملة القديمة)
-      </p>
-
-      <button class="btn-main" id="convertBtn" type="button">
-        <span class="icon">💱</span>
-        <span>تحويل</span>
-      </button>
+      <button class="btn-main" id="convertBtn">💱 تحويل</button>
 
       <div class="result-card" id="resultBox">
         <div class="result-main" id="resultMain"></div>
@@ -323,115 +128,28 @@
       <div class="dev-box">
         <div>المطور 👨🏻‍💻</div>
         <div class="dev-name">Hussein ALALI ALHASAN</div>
-        <div>
-          Telegram:
-          <a href="https://t.me/hussain1alali" target="_blank">@hussain1alali</a>
-        </div>
-        <div>
-          Instagram:
-          <a href="https://instagram.com/husseinalali515" target="_blank">@husseinalali515</a>
-        </div>
+        <div>Telegram: <a href="https://t.me/hussain1alali">@hussain1alali</a></div>
+        <div>Instagram: <a href="https://instagram.com/husseinalali515">@husseinalali515</a></div>
       </div>
     </main>
   </div>
 
-  <script>
-    // الأسعار مقابل الليرة السورية القديمة
-    const ratesOld = {
-      SYP_OLD: 1,        // ليرة قديمة
-      SYP_NEW: 100,      // 1 جديدة = 100 قديمة
-      USD: 11925,        // دولار
-      EUR: 13998,        // يورو
-      TRY: 278,          // ليرة تركية
-      SAR: 3180,         // ريال سعودي
-      EGP: 251,          // جنيه مصري
-      JOD: 16831,        // دينار أردني
-      KWD: 38762         // دينار كويتي
-    };
+<script>
+  const ratesOld={SYP_OLD:1,SYP_NEW:100,USD:11925,EUR:13998,TRY:278,SAR:3180,EGP:251,JOD:16831,KWD:38762};
+  function label(c){return{SYP_NEW:"ليرة جديدة",SYP_OLD:"ليرة قديمة",USD:"دولار",EUR:"يورو",SAR:"ريال",JOD:"دينار أردني",KWD:"دينار كويتي",TRY:"ليرة تركية",EGP:"جنيه"}[c]||c}
+  const amount=document.getElementById("amount"),from=document.getElementById("from"),to=document.getElementById("to"),
+  swap=document.getElementById("swapBtn"),btn=document.getElementById("convertBtn"),box=document.getElementById("resultBox"),
+  r1=document.getElementById("resultMain"),r2=document.getElementById("resultSecondary");
 
-    function labelOfCurrency(code) {
-      switch (code) {
-        case "SYP_NEW": return "ليرة سورية جديدة";
-        case "SYP_OLD": return "ليرة سورية قديمة";
-        case "USD": return "دولار أمريكي $";
-        case "EUR": return "يورو €";
-        case "SAR": return "ريال سعودي";
-        case "JOD": return "دينار أردني";
-        case "KWD": return "دينار كويتي";
-        case "TRY": return "ليرة تركية";
-        case "EGP": return "جنيه مصري";
-        default: return code;
-      }
-    }
+  swap.onclick=()=>{let x=from.value;from.value=to.value;to.value=x;}
+  btn.onclick=()=>{
+    let a=parseFloat(amount.value.replace(",",".")); if(!a){box.style.display="block";r1.innerText="❗ أدخل مبلغ صحيح";r2.innerText="";return}
+    let res=(a*ratesOld[from.value])/ratesOld[to.value];
+    box.style.display="block";
+    r1.innerText=`${a} ${label(from.value)} = ${res.toLocaleString("ar-SY",{maximumFractionDigits:4})} ${label(to.value)}`;
+    r2.innerText=`تحويل تقديري — قد تختلف الأسعار حسب السوق`;
+  }
+</script>
 
-    const amountInput      = document.getElementById("amount");
-    const fromSelect       = document.getElementById("from");
-    const toSelect         = document.getElementById("to");
-    const swapBtn          = document.getElementById("swapBtn");
-    const convertBtn       = document.getElementById("convertBtn");
-    const resultBox        = document.getElementById("resultBox");
-    const resultMain       = document.getElementById("resultMain");
-    const resultSecondary  = document.getElementById("resultSecondary");
-
-    function rateFromTo(from, to) {
-      return ratesOld[from] / ratesOld[to];
-    }
-
-    swapBtn.addEventListener("click", () => {
-      const oldFrom = fromSelect.value;
-      fromSelect.value = toSelect.value;
-      toSelect.value = oldFrom;
-    });
-
-    convertBtn.addEventListener("click", () => {
-      const raw    = amountInput.value.replace(",", ".");
-      const amount = parseFloat(raw);
-      const from   = fromSelect.value;
-      const to     = toSelect.value;
-
-      if (isNaN(amount) || amount <= 0) {
-        resultBox.style.display = "block";
-        resultMain.textContent = "❗ الرجاء إدخال مبلغ صحيح أكبر من 0";
-        resultSecondary.textContent = "";
-        return;
-      }
-
-      if (from === to) {
-        const formattedAmount =
-          amount.toLocaleString("ar-SY", { maximumFractionDigits: 2 });
-
-        resultBox.style.display = "block";
-        resultMain.textContent =
-          `${formattedAmount} ${labelOfCurrency(from)} (نفس العملة، لا يوجد تحويل)`;
-        resultSecondary.textContent = "";
-        return;
-      }
-
-      // من أي عملة → ليرة قديمة → العملة الهدف
-      const amountInOld = amount * ratesOld[from];
-      const result = amountInOld / ratesOld[to];
-
-      const formattedAmount =
-        amount.toLocaleString("ar-SY", { maximumFractionDigits: 2 });
-
-      const formattedResult =
-        (result >= 1)
-          ? result.toLocaleString("ar-SY", { maximumFractionDigits: 2 })
-          : result.toLocaleString("ar-SY", { maximumFractionDigits: 6 });
-
-      resultBox.style.display = "block";
-      resultMain.textContent =
-        `${formattedAmount} ${labelOfCurrency(from)} = ${formattedResult} ${labelOfCurrency(to)}`;
-
-      const r1 = rateFromTo(from, to);
-      const r2 = rateFromTo(to, from);
-
-      resultSecondary.textContent =
-        `السعر التقريبي الآن:\n` +
-        `• 1 ${labelOfCurrency(from)} ≈ ${r1.toFixed(4)} ${labelOfCurrency(to)}\n` +
-        `• 1 ${labelOfCurrency(to)} ≈ ${r2.toFixed(4)} ${labelOfCurrency(from)}\n` +
-        "القيم تقريبية ويمكن أن تتغير حسب السوق.";
-    });
-  </script>
 </body>
 </html>
